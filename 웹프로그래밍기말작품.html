@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="김정일">
+	<meta charset="코로나">
+	<meta charset="코로나맵">
+	<meta charset="코로나맵 천안">
+	<title> 코로나맵 천안 </title>
+	<style>
+        /* 상단바 속성 */
+		#corona
+		{
+			position: relative;
+			float: right;
+			width: 100%; height: 20%;
+			background-color: #6799FF;
+			z-index: 3;
+			font-weight: bold;
+			text-align: center;
+			color: white;
+			padding-top: 15px;
+			padding-bottom: 15px;
+			line-height: 1.3;
+		}
+
+        /* 하단 메뉴 속성 */
+        #menu 
+        {
+            position: absolute;
+            width: 99%; height: 5%;
+            background-color: #6799FF;
+        }
+
+        /* 천안시청 바로가기 */
+        #cheonan
+        {
+            position: absolute;
+            font-weight: bold;
+            text-align: left;
+            left: 10px;
+            top: -11px;
+        }
+
+        /* 개발자 이름 */
+		#name
+		{
+			position: absolute;
+			color: white;
+            font-weight: bold;
+            text-align: right;
+            right: 10px;
+            top: -11px;
+		}
+
+        /* 하이퍼링크 밑줄 삭제, 글자 색상 설정 */
+        a 
+        {
+            text-decoration: none;
+            text-decoration-color: whitesmoke;
+            color: white;
+        }
+	</style>
+</head>
+<body>
+	<div id="corona"> <h1><b> 충청남도 천안시 코로나맵 </b></h1>
+		<div id="일단 놔둠"> <h7><b>  </b></h7> </div>
+	</div>
+
+    <div id="map" style="width:100%;height:570px;"></div>
+
+	<script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=16a1cf5f3c385af130016fc9c4b1268e">
+	</script>
+	<script>
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+		    mapOption = {
+		        center: new kakao.maps.LatLng(36.81503, 127.11389), // 지도의 중심좌표
+		        level: 8, // 지도의 확대 레벨
+		        mapTypeId : kakao.maps.MapTypeId.ROADMAP // 지도종류
+		    }; 
+
+		// 지도를 생성한다 
+		var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+        // 마커를 표시할 위치와 title 객체 배열입니다 
+        // 위치와 주소, 방문 일시, 자료 정리와 모음입니다
+        // 당일 기준 14일전까지의 장소만 제공됩니다.
+        // 자료는 위에서부터 제공된순입니다.
+        var positions = [
+        {
+        place : '호떡박스', 
+        address : '두정로 212(두정동)',
+        visitedData : '11.26(목) 18:47 ~ 21:11',
+        content: '<div> 호떡박스 _ 11.26(목) 18:47 ~ 21:11 </div>',
+        latlng: new kakao.maps.LatLng(36.833643961463466, 127.14056199749398)
+        },
+        {
+        place : '정선생천안두정점', 
+        address : '원두정5길 10(두정동)',
+        visitedData : '11.22(일) 03:20 ~ 04:31',
+        content: '<div> 정선생천안두정점 _ 11.22(일) 03:20 ~ 04:31 </div>',
+        latlng: new kakao.maps.LatLng(36.831167701244404, 127.13502889409753)
+        },
+        {
+        place : '엑스코인노래방', 
+        address : '원두정8길 14(두정동)',
+        visitedData : '11.22(일) 02:33 ~ 03:17',
+        content: '<div> 엑스코인노래방 _ 11.22(일) 02:33 ~ 03:17 </div>',
+        latlng: new kakao.maps.LatLng(36.83251809794058, 127.13477115936118)
+        },
+        {
+        place : '닭살에 꼬치다', 
+        address : '원두정10길 10(두정동)',
+        visitedData : '11.22(일) 01:46 ~ 03:00',
+        content: '<div> 닭살에 꼬치다 _ 11.22(일) 01:46 ~ 03:00 </div>',
+        latlng: new kakao.maps.LatLng(36.833250504419716, 127.13509719521873)
+        },
+        {
+        place : '어썸', 
+        address : '원두정7길 14(두정동)',
+        visitedData : '11.21(토) 10:29 ~ 11.22(일) 01:05',
+        content: '<div> 어썸 _ 11.21(토) 10:29 ~ 11.22(일) 01:05 </div>',
+        latlng: new kakao.maps.LatLng(36.83209850213712, 127.13533096243494)
+        },
+        {
+        place : '목구멍 천안점', 
+        address : '불당33길 41(불당동)',
+        visitedData : '11.26(목) 21:35 ~ 22:08',
+        content: '<div> 목구멍 천안점 _ 11.26(목) 21:35 ~ 22:08 </div>',
+        latlng: new kakao.maps.LatLng(36.811326756994404, 127.10727656735823)
+        },
+        {
+        place : '지문사 불당점', 
+        address : '불당34길 3-18(불당동)',
+        visitedData : '11.24(화) 13:11 ~ 13:18',
+        content: '<div> 지문사 불당점 _ 11.24(화) 13:11 ~ 13:18 </div>',
+        latlng: new kakao.maps.LatLng(36.80644339634007, 127.10584348346092)
+        },
+        {
+        place : '그래비티', 
+        address : '성성5로 125(성성동)',
+        visitedData : '11.26(목) 17:37 ~ 20:21',
+        content: '<div> 그래비티 _ 11.26(목) 17:37 ~ 20:21 </div>',
+        latlng: new kakao.maps.LatLng(36.84410350032043, 127.13545660638957)
+        },
+        {
+        place : '투썸플레이스 업성레이크점', 
+        address : '업성수변로 79(성성동)',
+        visitedData : '11.22(일) 18:50 ~ 19:19',
+        content: '<div> 투썸플레이스 업성레이크점 _ 11.22(일) 18:50 ~ 19:19 </div>',
+        latlng: new kakao.maps.LatLng(36.84655190450034, 127.13756959175839)
+        },
+        {
+        place : '롯데마트 성정점', 
+        address : '성정두정로 1(성정동)',
+        visitedData : '11.27(금) 20:45 ~ 21:33',
+        content: '<div> 롯데마트 성정점 _ 11.27(금) 20:45 ~ 21:33 </div>',
+        latlng: new kakao.maps.LatLng(36.826289119783766, 127.14007746885504)
+        },
+        {
+        place : '유니클로 롯데마트 성정점', 
+        address : '성정두정로 1(성정동)',
+        visitedData : '11.26(목) 16:20 ~ 16:31',
+        content: '<div> 유니클로 롯데마트 성정점 _ 11.26(목) 16:20 ~ 16:31 </div>',
+        latlng: new kakao.maps.LatLng(36.826226371413966, 127.14030259745972)
+        },
+        {
+        place : '열린약국', 
+        address : '불당대로 269(쌍용동)',
+        visitedData : '11.24(화) 14:18 ~ 14:21',
+        content: '<div> 열린약국 _ 11.24(화) 14:18 ~ 14:21 </div>',
+        latlng: new kakao.maps.LatLng(36.80024631247971, 127.12592530430383)
+        },
+        {
+        place : '김정훈내과의원', 
+        address : '불당대로 269(쌍용동)',
+        visitedData : '11.24(화) 14:18 ~ 14:21',
+        content: '<div> 김정훈내과의원 _ 11.24(화) 14:18 ~ 14:21 </div>',
+        latlng: new kakao.maps.LatLng(36.800320794660614, 127.12629193708285)
+        },
+        {
+        place : '삼성전자서비스 천안센터', 
+        address : '서부대로 354(쌍용동)',
+        visitedData : '11.24(화) 13:49 ~ 14:00',
+        content: '<div> 삼성전자서비스 천안센터 _ 11.24(화) 13:49 ~ 14:00 </div>',
+        latlng: new kakao.maps.LatLng(36.798968205881216, 127.12660119993656)
+        },
+        {
+        place : '뚜쥬르과자점 빵돌가마점', 
+        address : '풍세로 706(구룡동)',
+        visitedData : '11.21(토) 17:28 ~ 18:13',
+        content: '<div> 뚜쥬르과자점 빵돌가마점 _ 11.21(토) 17:28 ~ 18:13 </div>',
+        latlng: new kakao.maps.LatLng(36.77307603671795, 127.13957878404055)
+        },
+        {
+        place : '그린컴퓨터아트학원 천안캠퍼스', 
+        address : '터미널2로 10(신부동)',
+        visitedData : '11.27(금) 18:55 ~ 21:52, 11.23(월) 18:57 ~ 21:52',
+        content: '<div> 그린컴퓨터아트학원 천안캠퍼스 _ 11.27(금) 18:55 ~ 21:52, 11.23(월) 18:57 ~ 21:52 </div>',
+        latlng: new kakao.maps.LatLng(36.819828760421345, 127.15853155760263)
+        },
+        {
+        place : 'CU천안터미널점(시외버스터미널점)', 
+        address : '만남로 43(신부동)',
+        visitedData : '11.25(수) 15:04 ~ 15:23',
+        content: '<div> CU천안터미널점 _ 11.25(수) 15:04 ~ 15:23 </div>',
+        latlng: new kakao.maps.LatLng(36.819199436501655, 127.154636663162392)
+        },
+        {
+        place : '투다리 대학점', 
+        address : '중암1길 20(안서동)',
+        visitedData : '11.27(금) 01:30 ~ 03:00',
+        content: '<div> 투다리 대학점 _ 11.27(금) 01:30 ~ 03:00 </div>',
+        latlng: new kakao.maps.LatLng(36.83264779167342, 127.1744689134331)
+        },
+        {
+        place : '천안동남구경찰서', 
+        address : '청수6로 73(청당동)',
+        visitedData : '11.25(수) 12:36 ~ 15:22',
+        content: '<div> 천안동남구경찰서 _ 11.25(수) 12:36 ~ 15:22 </div>',
+        latlng: new kakao.maps.LatLng(36.78668451662652, 127.15605231428312)
+        },
+
+        ];
+
+        // 마커 이미지의 이미지 주소입니다
+        var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
+    
+        for (var i = 0; i < positions.length; i ++) {
+        // 마커 이미지의 이미지 크기 입니다
+        var imageSize = new kakao.maps.Size(20, 30); 
+    
+        // 마커 이미지를 생성합니다    
+        var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
+    
+        // 마커를 생성합니다
+        var marker = new kakao.maps.Marker({
+            map: map, // 마커를 표시할 지도
+            position: positions[i].latlng, // 마커를 표시할 위치
+            title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+            image : markerImage // 마커 이미지 
+        });
+
+        // 마커에 표시할 인포윈도우를 생성합니다 
+        var infowindow = new kakao.maps.InfoWindow({
+        content: positions[i].content // 인포윈도우에 표시할 내용
+        });
+
+        // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+        // 이벤트 리스너로는 클로저를 만들어 등록합니다 
+        // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+        kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+        kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+        }
+
+     // 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
+     function makeOverListener(map, marker, infowindow) {
+         return function() {
+          infowindow.open(map, marker);
+      };
+     }
+
+     // 인포윈도우를 닫는 클로저를 만드는 함수입니다 
+     function makeOutListener(infowindow) {
+         return function() {
+         infowindow.close();
+     };
+     }
+    </script>
+
+    <!-- 천안시청과 개발자 바로가기 링크 -->
+    <div id="menu">
+        <div id="cheonan"> <a href="https://www.cheonan.go.kr/"> <h3> 천안시청 바로가기 </h3> </a> </div>
+        <div id="name"> <a href="https://www.instagram.com/k_jungil/"> <h3> @김정일 </h3> </a> </div>
+    </div>
+</body>
+</html>
